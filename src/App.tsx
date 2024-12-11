@@ -48,13 +48,14 @@ const App = () => {
 
 
   async function fetchMovieDetails(query: string) {
+    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
     const url = `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false`;
     const options = {
       method: "GET",
       headers: {
         accept: "application/json",
         Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTYyMTQ1MDNiOTk1NjRhZDViYjUzODY2Mzg3ZWEzZiIsIm5iZiI6MTcwNDA4NjExMC40NjcsInN1YiI6IjY1OTI0YTVlNTcxNzZmNmI3NTdmYWRhYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OGH8WW34qpuRMjkiPjrCG38tVFB7jqEP5FFfWEwAfzc",
+          `Bearer ${apiKey}`,
       },
     };
 
