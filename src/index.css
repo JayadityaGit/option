@@ -2,3 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Drawer Overrides */
+.custom-drawer .rs-drawer-body {
+    padding: 0;
+    margin: 0;
+    height: calc(100vh - 4rem); /* Adjust based on your header size */
+    overflow: hidden; /* Prevent content overflow */
+  }
+  
+  /* Iframe Container */
+  .iframe-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Responsive Iframe */
+  .responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  /* Episodes Grid */
+  .episodes-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Default to 5 columns */
+    gap: 1rem;
+  }
+  
+  @media (min-width: 1024px) {
+    .episodes-grid {
+      grid-template-columns: repeat(10, 1fr); /* 10 columns on larger screens */
+    }
+  }
+  
+  /* Episode Button */
+  .episode-button {
+    border: 2px solid transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .episode-button:hover {
+    background-color: #555; /* Slightly lighter background on hover */
+    transform: scale(1.05); /* Scale up slightly */
+  }
+  
+  .episode-button:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border */
+  }
+  

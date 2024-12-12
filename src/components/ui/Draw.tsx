@@ -150,59 +150,74 @@ const Draw = ({ isDrawerOpen, onClickDrawer, tmdbId, searchMode }: myDrawerProps
   }, [tmdbId]);
 
   return (
-    <Drawer size="full" placement="bottom" open={isDrawerOpen} onClose={onClickDrawer}>
-      <Drawer.Header>
-        <Drawer.Title>Enjoy the Show Doctor!</Drawer.Title>
-        <Drawer.Actions>
-          <Button onClick={onClickDrawer}>Cancel</Button>
-        </Drawer.Actions>
-      </Drawer.Header>
-      <Drawer.Body>
-      {searchMode === "movie" ? (
-        <div className="relative w-full pb-[56.25%]"> {/* 16:9 Aspect Ratio */}
+<Drawer
+  size="full"
+  placement="bottom"
+  open={isDrawerOpen}
+  onClose={onClickDrawer}
+  className="custom-drawer"
+>
+  <Drawer.Header>
+    <Drawer.Title>Enjoy the Show Doctor!</Drawer.Title>
+    <Drawer.Actions>
+      <Button onClick={onClickDrawer}>Cancel</Button>
+    </Drawer.Actions>
+  </Drawer.Header>
+  <Drawer.Body>
+    {searchMode === "movie" ? (
+      <div className="flex justify-center">
+        <iframe
+          src={`https://vidlink.pro/movie/${tmdbId}`}
+          allowFullScreen
+          className="w-full h-[50rem]"
+        ></iframe>
+      </div>
+    ) : (
+      <div>
+
+       <div className="flex justify-center">
+       
           <iframe
-            src={`https://vidlink.pro/movie/${tmdbId}`}
-            allowFullScreen={true}
-            className="absolute top-0 left-0 w-full h-full"
+            src={`https://vidlink.pro/tv/${tmdbId}/${season}/${ep}`}
+            allowFullScreen
+            className="w-96 h-96"
           ></iframe>
-        </div>
-      ) : (
-        <div>
-          <div className="relative w-full pb-[56.25%]"> {/* 16:9 Aspect Ratio */}
-            <iframe
-              src={`https://vidlink.pro/tv/${tmdbId}/${season}/${ep}`}
-              allowFullScreen={true}
-              className="absolute top-0 left-0 w-full h-full"
-            ></iframe>
-          </div>
-          <Accordion defaultActiveKey={1} bordered>
-            {seasons.length > 0 ? (
-              seasons.map((season) => (
-                <Accordion.Panel key={season.id} header={`Season ${season.season_number}`} eventKey={season.id.toString()}>
-                  <div className="grid grid-cols-5 lg:grid-cols-10 gap-3">
-                    {Array.from({ length: season.episode_count }, (_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => {
-                          setEp(index + 1);
-                          setSeason(season.season_number);
-                        }}
-                        className="border-2 px-4 py-2 rounded-lg text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105"
-                      >
-                        {index + 1}
-                      </button>
-                    ))}
-                  </div>
-                </Accordion.Panel>
-              ))
-            ) : (
-              <div>No seasons available.</div>
-            )}
-          </Accordion>
-        </div>
-      )}
-    </Drawer.Body>
-    </Drawer>
+
+        </div> 
+        
+        <Accordion defaultActiveKey={1} bordered>
+          {seasons.length > 0 ? (
+            seasons.map((season) => (
+              <Accordion.Panel
+                key={season.id}
+                header={`Season ${season.season_number}`}
+                eventKey={season.id.toString()}
+              >
+                <div className="episodes-grid">
+                  {Array.from({ length: season.episode_count }, (_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        setEp(index + 1);
+                        setSeason(season.season_number);
+                      }}
+                      className="episode-button"
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              </Accordion.Panel>
+            ))
+          ) : (
+            <div>No seasons available.</div>
+          )}
+        </Accordion>
+      </div>
+    )}
+  </Drawer.Body>
+</Drawer>
+
   );
 };
 
