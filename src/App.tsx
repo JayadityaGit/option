@@ -62,6 +62,10 @@ const App = () => {
     try {
       const response = await fetch(url, options);
 
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
       const data: MovieResponse = await response.json();
 
       setEnt(data.results)
@@ -92,17 +96,14 @@ const App = () => {
   const words = [
 
 
-    "guide",
-    "pillar",
     "peacemaker",
-    "nurturer",
     "healer",
-    "role model",
-    "guardian",
     "uplifter",
     "inspiration",
-    "teacher",
-    "angel"
+    "angel",
+    "never give up",
+    "zomato",
+    "bully"
 
   ];
 
