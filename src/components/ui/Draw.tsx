@@ -124,7 +124,7 @@ const Draw = ({ isDrawerOpen, onClickDrawer, tmdbId, searchMode }: myDrawerProps
   useEffect(() => {
     async function getTvDetails() {
       const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-      const url = `https://api.themoviedb.org/3/tv/${tmdbId}`;
+      const url = `https://curly-hill-2443.winter-queen-2f83.workers.dev/tv/${tmdbId}`;
       const options = {
         method: 'GET',
         headers: {

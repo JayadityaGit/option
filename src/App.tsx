@@ -48,14 +48,11 @@ const App = () => {
 
 
   async function fetchMovieDetails(query: string) {
-    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-    const url = `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false`;
+    const url = `https://curly-hill-2443.winter-queen-2f83.workers.dev/search/multi?query=${query}`;
     const options = {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization:
-          `Bearer ${apiKey}`,
       },
     };
 
@@ -67,6 +64,8 @@ const App = () => {
       }
 
       const data: MovieResponse = await response.json();
+
+      console.log(data)
 
       setEnt(data.results)
      
@@ -142,7 +141,7 @@ const App = () => {
           }}
         >
           <img
-            src={"http://image.tmdb.org/t/p/w185" + movie.poster_path}
+            src={`https://curly-hill-2443.winter-queen-2f83.workers.dev/image${movie.poster_path}`}
             alt={"Nothing to see here researcher"}
             className="object-cover w-full h-full transition-transform duration-300 transform group-hover:scale-110"
           />
