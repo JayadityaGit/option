@@ -158,45 +158,50 @@ const Draw = ({ isDrawerOpen, onClickDrawer, tmdbId, searchMode }: myDrawerProps
         </Drawer.Actions>
       </Drawer.Header>
       <Drawer.Body>
-        {searchMode === "movie" ? (
+      {searchMode === "movie" ? (
+        <div className="relative w-full pb-[56.25%]"> {/* 16:9 Aspect Ratio */}
           <iframe
             src={`https://vidlink.pro/movie/${tmdbId}`}
             allowFullScreen={true}
-            className="w-full h-80 md:h-96 lg:h-full"
+            className="absolute top-0 left-0 w-full h-full"
           ></iframe>
-        ) : (
-          <div>
-
-          <iframe
-            src={`https://vidlink.pro/tv/${tmdbId}/${season}/${ep}`}
-            allowFullScreen={true}
-            className="w-full h-80 md:h-96 "
-          ></iframe>
-
-            <Accordion defaultActiveKey={1} bordered>
-              {seasons.length > 0 ? (
-                seasons.map((season) => (
-                  <Accordion.Panel key={season.id} header={`Season ${season.season_number}`} eventKey={season.id.toString()}>
-                           <div className="grid grid-cols-5 lg:grid-cols-10 gap-3 ">
-                              {Array.from({ length: season.episode_count }, (_, index) => (
-                                <button
-                                  key={index}
-                                  onClick={()=>{setEp(index+1); setSeason(season.season_number);   }}
-                                   className="border-2 px-4 py-2 rounded-lg text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105"
-                                >
-                                  {index + 1}
-                                </button>
-                              ))}
-                            </div>
-                  </Accordion.Panel>
-                ))
-              ) : (
-                <div>No seasons available.</div>
-              )}
-            </Accordion>
+        </div>
+      ) : (
+        <div>
+          <div className="relative w-full pb-[56.25%]"> {/* 16:9 Aspect Ratio */}
+            <iframe
+              src={`https://vidlink.pro/tv/${tmdbId}/${season}/${ep}`}
+              allowFullScreen={true}
+              className="absolute top-0 left-0 w-full h-full"
+            ></iframe>
           </div>
-        )}
-      </Drawer.Body>
+          <Accordion defaultActiveKey={1} bordered>
+            {seasons.length > 0 ? (
+              seasons.map((season) => (
+                <Accordion.Panel key={season.id} header={`Season ${season.season_number}`} eventKey={season.id.toString()}>
+                  <div className="grid grid-cols-5 lg:grid-cols-10 gap-3">
+                    {Array.from({ length: season.episode_count }, (_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          setEp(index + 1);
+                          setSeason(season.season_number);
+                        }}
+                        className="border-2 px-4 py-2 rounded-lg text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105"
+                      >
+                        {index + 1}
+                      </button>
+                    ))}
+                  </div>
+                </Accordion.Panel>
+              ))
+            ) : (
+              <div>No seasons available.</div>
+            )}
+          </Accordion>
+        </div>
+      )}
+    </Drawer.Body>
     </Drawer>
   );
 };
