@@ -100,7 +100,6 @@ const App = () => {
     "healer",
     "uplifter",
     "inspiration",
-    "angel",
     "never give up",
     "zomato",
     "bully"
