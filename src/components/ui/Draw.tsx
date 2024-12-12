@@ -169,7 +169,6 @@ const Draw = ({ isDrawerOpen, onClickDrawer, tmdbId, searchMode }: myDrawerProps
         <iframe
           src={`https://vidlink.pro/movie/${tmdbId}`}
           allowFullScreen
-          className="w-full h-[50rem]"
         ></iframe>
       </div>
     ) : (
@@ -180,7 +179,6 @@ const Draw = ({ isDrawerOpen, onClickDrawer, tmdbId, searchMode }: myDrawerProps
           <iframe
             src={`https://vidlink.pro/tv/${tmdbId}/${season}/${ep}`}
             allowFullScreen
-            
           ></iframe>
 
         </div> 
