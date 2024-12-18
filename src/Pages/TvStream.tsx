@@ -61,7 +61,7 @@ const TvStream = () => {
       {/* Video Container with responsive aspect ratio */}
       <div className="relative w-full aspect-video">
         <iframe
-          src={`https://vidlink.pro/tv/${tmdbId}/${season}/${ep}`}
+          src={`https://vidsrc.icu/embed/tv/${tmdbId}/${season}/${ep}`}
           allowFullScreen
           className="absolute top-0 left-0 w-full h-full rounded-lg"
         />
