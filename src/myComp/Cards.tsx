@@ -3,12 +3,12 @@ import { Movie } from "../types/entType";
 import { useNavigate } from "react-router";
 
 interface CardsProps{
-    resutls: Movie[],
+    results: Movie[],
 
 }
 
 
-const Cards = ({resutls}: CardsProps) => {
+const Cards = ({results}: CardsProps) => {
 
   function handleClick(id: number, mediatype: string) {
 
@@ -33,7 +33,7 @@ const Cards = ({resutls}: CardsProps) => {
     <div className="grid place-items-center gap-4 grid-cols-2 md:grid-cols-4 px-6 mx-auto max-w-screen-md">
 
       
-    {resutls
+    {results
         .filter((movie) => movie.media_type === "tv" || movie.media_type === "movie")
         .map((movie) => (
           <div

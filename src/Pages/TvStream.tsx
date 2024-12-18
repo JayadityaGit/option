@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router"
 import { TVShow } from "../types/entType";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Button } from "@/components/ui/button";
 
@@ -71,7 +71,7 @@ const TvStream = () => {
       <div className="w-full">
         <Tabs defaultValue={`Season${1}`} className="w-full">
           <ScrollArea className="w-full pb-4">
-            <TabsList className="w-full justify-start">
+            <TabsList className="w-full justify-start sm:mb-4 lg:mt-0">
               {seasons.map((season) => (
                 <TabsTrigger
                   key={season.season_number}
@@ -82,12 +82,14 @@ const TvStream = () => {
                 </TabsTrigger>
               ))}
             </TabsList>
+            <ScrollBar orientation="horizontal"  />
           </ScrollArea>
 
           {seasons.map((season) => (
             <TabsContent 
               key={season.season_number} 
               value={`Season${season.season_number}`}
+              className="sm:mt-3 lg:mt-0"
             >
               <ScrollArea className="h-[50vh] md:h-72 w-full rounded-md border">
                 <div className="p-4">
