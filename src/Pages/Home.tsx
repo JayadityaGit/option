@@ -12,7 +12,7 @@ const Home = () => {
     const [ent, setEnt] = useState<Movie[]>([]);
   
     async function fetchMovieDetails(query: string) {
-      const url = `https://curly-hill-2443.winter-queen-2f83.workers.dev/search/multi?query=${query}`;
+      const url = `${import.meta.env.VITE_MULTI_SEARCH}?query=${query}`;
       const options = {
         method: "GET",
         headers: {

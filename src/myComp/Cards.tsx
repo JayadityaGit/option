@@ -42,7 +42,7 @@ const Cards = ({results}: CardsProps) => {
             onClick={()=>handleClick(movie.id, movie.media_type)}
           >
             <img
-              src={`https://curly-hill-2443.winter-queen-2f83.workers.dev/image${movie.poster_path}`}
+              src={`${import.meta.env.VITE_IMAGE}${movie.poster_path}`}
               alt={"Nothing to see here researcher"}
               className={`h-64 rounded-xl transition-opacity duration-300 ${
                 isLoading ? "opacity-0" : "opacity-100"
