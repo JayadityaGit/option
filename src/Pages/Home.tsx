@@ -58,6 +58,7 @@ const Home = () => {
       "uplifter",
       "never give up",
       "zomato mailer",
+      "your dost",
       "bully",
       "well wisher"
   
