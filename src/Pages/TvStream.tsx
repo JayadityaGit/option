@@ -11,9 +11,7 @@ const TvStream = () => {
 
     const location = useLocation()
     const tmdbId = location.state.tmdbId
-
     const [server, setServer] = useState(true)
-    
     const [season, setSeason] = useState(1);
     const [ep, setEp] = useState(1);
     
@@ -96,6 +94,7 @@ const TvStream = () => {
                   key={season.season_number}
                   value={`Season${season.season_number}`}
                   className="min-w-[100px]"
+                  onClick={()=>{setEp(1), setSeason(season.season_number)}}
                 >
                   Season {season.season_number}
                 </TabsTrigger>
@@ -112,8 +111,8 @@ const TvStream = () => {
             >
               <ScrollArea className="h-[50vh] md:h-72 w-full rounded-md border">
                 <div className="p-4">
-                  <h4 className="mb-4 text-sm font-medium leading-none">
-                    {season.name}
+                  <h4 className="mb-4 text-sm font-semibold leading-none ">
+                     {`Dr. S, you're watching Episode ${ep}`}
                   </h4>
                   <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                     {Array.from({ length: season.episode_count }, (_, i) => (
