@@ -3,6 +3,9 @@ import { Movie, MovieResponse } from "../types/entType";
 import { PlaceholdersAndVanishInput } from "../components/ui/placeholders-and-vanish-input";
 import { FlipWords } from "../components/ui/flip-words";
 import Cards from "../myComp/Cards";
+import meme from "@/assests/meme.gif"
+import { PinContainer } from "@/components/ui/3d-pin";
+
 
 
 
@@ -55,7 +58,6 @@ const Home = () => {
     const words = [
       "peacemaker",
       "healer",
-      "uplifter",
       "never give up",
       "zomato mailer",
       "your dost",
@@ -81,7 +83,25 @@ const Home = () => {
 
         
         
-        <Cards results={ent}/>
+       {ent.length > 0 ? <Cards results={ent}/> :    
+       
+       <div className="flex justify-center p-5 md:p-0">
+      
+      <PinContainer
+        title="click me for a song"
+        href="https://www.youtube.com/watch?v=aFgxMI_sO3M"
+        
+      >
+        <div className="flex basis-full flex-col  tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem] ">
+          <img
+          src={meme}
+          alt="jordans"
+          className="object-contain rounded-lg"
+        />
+        </div>
+      </PinContainer>
+      
+      </div>} 
     </div>
   )
 }
