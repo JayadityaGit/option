@@ -88,8 +88,8 @@ const Home = () => {
        <div className="flex justify-center p-5 md:p-0">
       
       <PinContainer
-        title="click me for a song"
-        href="https://www.youtube.com/watch?v=aFgxMI_sO3M"
+        title="country road yeehaaah!!!!!"
+        href="https://www.youtube.com/watch?v=hqURBTpvh0A"
         
       >
         <div className="flex basis-full flex-col  tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem] ">
