@@ -63,7 +63,8 @@ const Cards = ({ results }: CardsProps) => {
                 <Skeleton className="h-full w-full rounded-xl bg-gray-300" />
                 {/* Overlay Title and Dates */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-2 text-sm text-gray-700">
-                  <p className="font-semibold">{movie.title}</p>
+                  <p className="font-semibold">{movie.media_type == "movie"? movie.title : movie.name}</p>
+                  <p>{movie.media_type}</p>
                   <p>
                     {movie.release_date
                       ? `Release: ${movie.release_date}`
