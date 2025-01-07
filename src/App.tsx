@@ -37,7 +37,8 @@ const App = () => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction><a  target="blank" href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/">install</a></AlertDialogAction>
+            <AlertDialogAction><a  target="blank" href="https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en">install for chrome</a></AlertDialogAction>
+            <AlertDialogAction><a  target="blank" href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/">install for firefox</a></AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
