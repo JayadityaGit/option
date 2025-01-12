@@ -63,7 +63,7 @@ const Home = () => {
 <div className="h-screen">
   <div className="h-[10rem] md:h-[20rem] flex flex-col justify-center px-4">
     <h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-2xl md:text-4xl font-sans py-5 md:py-10 relative z-20 font-bold tracking-tight">
-      the <FlipWords words={words} />
+      <FlipWords words={words} />
     </h2>
     <PlaceholdersAndVanishInput
       placeholders={placeholders}
