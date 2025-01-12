@@ -53,9 +53,9 @@ const Home = () => {
     "peacemaker",
     "healer",
     "never give up",
-    "zomato mailer",
-    "your dost",
-    "bully",
+    "suspected zomato mailer",
+    "suspected your dost mailer",
+    "suspected bully",
     "well wisher",
   ];
 
