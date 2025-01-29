@@ -6,7 +6,7 @@ const MovieStream = () => {
   const location = useLocation();
   const [tmdbdId, setTmdbId] = useState(location.state.tmdbId);
 
-  const [server, setServer] = useState(true)
+  const [server, setServer] = useState(false)
 
   useEffect(() => {
     
