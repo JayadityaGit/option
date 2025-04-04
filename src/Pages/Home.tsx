@@ -53,10 +53,8 @@ const Home = () => {
     "peacemaker",
     "healer",
     "never give up",
-    "suspected zomato mailer",
-    "suspected your dost mailer",
-    "suspected bully",
     "well wisher",
+    "Angel"
   ];
 
   return (
