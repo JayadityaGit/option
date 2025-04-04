@@ -76,7 +76,7 @@ const Home = () => {
     <div className="flex justify-center p-5 md:p-0">
       <PinContainer
         title="whatever happens ... happens, love u :)"
-        href="https://youtube.com/shorts/pbzvyhBbRWQ?si=qb6m1U5Pg7BBg4_l"
+        href="https://www.youtube.com/shorts/tuK9pA5PlsA"
       >
         <div className="flex flex-col items-center justify-center w-[15rem] md:w-[20rem]  h-auto">
           <img
