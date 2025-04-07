@@ -43,6 +43,7 @@ Through this journey, I learned:
 - Embed streaming players using iframes
 - Bypass regional restrictions using Cloudflare Workers
 - Build clean, responsive UIs with reusable components
+- it's hard to impress Angels
 
 
 ---
