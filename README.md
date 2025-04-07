@@ -36,11 +36,14 @@ Option is a full-stack streaming website that brings together Movies, TV Shows, 
 
 I wanted to watch anime, cartoons, and movies from one place — and I couldn’t find a good UI-based experience that didn’t require switching apps or sites. So I built one.
 
-It started as a curiosity project and helped me learn:
+This project also holds a personal meaning — I built it as a tribute to someone I deeply admire, **Sireesha**. Her presence and inspiration pushed me to follow through with this idea and give it my all.
+
+Through this journey, I learned:
 - How to use APIs effectively (TMDB)
-- Embed streaming securely
-- Bypass regional restrictions
-- Build clean UI/UX with reusable components
+- Embed streaming players using iframes
+- Bypass regional restrictions using Cloudflare Workers
+- Build clean, responsive UIs with reusable components
+
 
 ---
 
@@ -59,11 +62,12 @@ If you're building something similar, or want help building a streaming or API-p
 
 ---
 
-## 📂 Setup Instructions
+## 📬 Contact Me
 
-```bash
-git clone https://github.com/JayadityaGit/option
-get tmdb api key
-cd option
-npm install
-npm run dev
+Jayaditya
+GitHub: @JayadityaGit
+Live Site: optionundali.vercel.app
+Email: opensourceaditya@gmail.com
+
+
+
