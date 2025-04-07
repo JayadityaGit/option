@@ -1,50 +1,69 @@
-# React + TypeScript + Vite
+# 🎬 Option — Stream Everything, From Anime to Movies
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Demo:** [optionundali.vercel.app](https://optionundali.vercel.app)
 
-Currently, two official plugins are available:
+Option is a full-stack streaming website that brings together Movies, TV Shows, Cartoons, and Anime — all in one place, with a clean interface and minimal distractions. Think of it like a TMDB-powered frontend with Vidlink player integration.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- 🔍 **Global Search** — Find any movie, show, cartoon, or anime
+- 🎥 **Embedded Player** — Uses Vidlink iframe for direct streaming
+- 🌍 **Geo-Bypass Friendly** — Supports Cloudflare Worker/proxy workaround
+- 📱 **Responsive UI** — Mobile and desktop friendly
+- ⚡ **Fast Deployment** — Built with Vite + React + modern UI
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🛠️ Stack
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **Frontend:** React + Vite + Shadcn (UI) + Tailwind
+- **APIs:** TMDB API for metadata
+- **Streaming:** Vidlink iframe integration
+- **Deployment:** Vercel
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 📸 Screenshots
+
+![Screenshot 2025-04-07 205403](https://github.com/user-attachments/assets/6ac7bee3-73c0-499a-abb4-ec1c4e63c862)
+![Screenshot 2025-04-07 205329](https://github.com/user-attachments/assets/18b118b9-290a-427b-8c1f-3bcf6eb66716)
+![Screenshot 2025-04-04 212711](https://github.com/user-attachments/assets/62129b2e-5490-4bcb-9b34-0f1b6a8d4086)
+
+
+## 🤔 Why I Built This
+
+I wanted to watch anime, cartoons, and movies from one place — and I couldn’t find a good UI-based experience that didn’t require switching apps or sites. So I built one.
+
+It started as a curiosity project and helped me learn:
+- How to use APIs effectively (TMDB)
+- Embed streaming securely
+- Bypass regional restrictions
+- Build clean UI/UX with reusable components
+
+---
+
+## 🧠 What I Want to Do Next
+
+- Add watchlists / favorites
+- Add user authentication (maybe Supabase/Auth.js)
+- Improve search with filters
+- Get real feedback from users or contributors
+
+---
+
+## 🤝 Wanna Collaborate?
+
+If you're building something similar, or want help building a streaming or API-powered app — feel free to reach out.
+
+---
+
+## 📂 Setup Instructions
+
+```bash
+git clone https://github.com/JayadityaGit/option
+get tmdb api key
+cd option
+npm install
+npm run dev
