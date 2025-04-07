@@ -2,6 +2,8 @@
 
 **Live Demo:** [optionundali.vercel.app](https://optionundali.vercel.app)
 
+**Dev.to post:** [My post](https://dev.to/jayaditya_g_483d21149a69b/meet-option-all-in-one-streaming-website-opensource-3n9k)
+
 Option is a full-stack streaming website that brings together Movies, TV Shows, Cartoons, and Anime — all in one place, with a clean interface and minimal distractions. Think of it like a TMDB-powered frontend with Vidlink player integration.
 
 ---
