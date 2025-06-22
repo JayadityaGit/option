@@ -24,7 +24,11 @@ const App = () => {
         <ModeToggle />
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-8 w-8">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
+            >
               <Crown className="h-4 w-4" />
             </Button>
           </AlertDialogTrigger>
