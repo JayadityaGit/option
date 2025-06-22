@@ -15,6 +15,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "./components/ui/button"
+import { Crown } from "lucide-react"
 
 const App = () => {
   return (
@@ -23,7 +24,9 @@ const App = () => {
         <ModeToggle />
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button>premium</Button>
+            <Button variant="ghost" size="icon" className="h-8 w-8">
+              <Crown className="h-4 w-4" />
+            </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
