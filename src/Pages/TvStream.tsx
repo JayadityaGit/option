@@ -13,7 +13,8 @@ const TvStream = () => {
   const [server, setServer] = useState(false);
   const [season, setSeason] = useState(1);
   const [ep, setEp] = useState(1);
-  const [tvShow, setTvShow] = useState<TVShow | null>(null);
+  const [tvShowDetails, setTvShowDetails] = useState<Movie | null>(null); // Store as Movie type
+  const [tvShowSeasons, setTvShowSeasons] = useState<TVShow | null>(null); // Store seasons separately
 
   useEffect(() => {
     async function getTvDetails() {
@@ -29,8 +30,18 @@ const TvStream = () => {
 
       try {
         const response = await fetch(url, options);
-        const data: TVShow = await response.json();
-        setTvShow(data);
+        const data = await response.json();
+        // Construct Movie object for FavoriteButton
+        setTvShowDetails({
+          id: data.id,
+          title: data.name, // TV shows use 'name' instead of 'title'
+          name: data.name,
+          poster_path: data.poster_path,
+          release_date: data.first_air_date, // TV shows use 'first_air_date'
+          first_air_date: data.first_air_date,
+          media_type: "tv",
+        });
+        setTvShowSeasons(data); // Set full TVShow data for seasons
       } catch (error) {
         console.error("Error fetching TV details:", error);
       }
@@ -42,7 +53,7 @@ const TvStream = () => {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 space-y-8">
       <div className="flex justify-end mb-4">
-        {tvShow && <FavoriteButton item={{ ...tvShow, media_type: "tv" } as Movie} />}
+        {tvShowDetails && <FavoriteButton item={tvShowDetails} />}
         <label className="inline-flex items-center cursor-pointer ml-4">
           <span className="mr-3 text-sm font-medium text-gray-900 dark:text-gray-300">
             {server ? "VidLink" : "VidSrc"}
@@ -67,12 +78,12 @@ const TvStream = () => {
         />
       </div>
 
-      {tvShow && (
+      {tvShowSeasons && tvShowSeasons.seasons && (
         <div className="w-full">
           <Tabs defaultValue={`Season${1}`} className="w-full">
             <ScrollArea className="w-full pb-4">
               <TabsList className="w-full justify-start sm:mb-4 lg:mt-0">
-                {tvShow.seasons.map((season) => (
+                {tvShowSeasons.seasons.map((season) => (
                   <TabsTrigger
                     key={season.season_number}
                     value={`Season${season.season_number}`}
@@ -89,7 +100,7 @@ const TvStream = () => {
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
 
-            {tvShow.seasons.map((season) => (
+            {tvShowSeasons.seasons.map((season) => (
               <TabsContent
                 key={season.season_number}
                 value={`Season${season.season_number}`}
