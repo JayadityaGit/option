@@ -1,29 +1,49 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router"
-
+import { useLocation } from "react-router";
+import FavoriteButton from "../components/FavoriteButton";
+import { Movie } from "../types/entType";
 
 const MovieStream = () => {
   const location = useLocation();
-  const [tmdbdId, setTmdbId] = useState(location.state.tmdbId);
+  const [tmdbId, setTmdbId] = useState(location.state.tmdbId);
+  const [movie, setMovie] = useState<Movie | null>(null);
 
-  const [server, setServer] = useState(false)
+  const [server, setServer] = useState(false);
 
   useEffect(() => {
-    
     const id: string = location.state.tmdbId;
-    setTmdbId(id)
+    setTmdbId(id);
 
-  }, [])
-  
+    async function getMovieDetails() {
+      const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+      const url = `https://api.themoviedb.org/3/movie/${id}`;
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+      };
 
+      try {
+        const response = await fetch(url, options);
+        const data: Movie = await response.json();
+        setMovie(data);
+      } catch (error) {
+        console.error("Error fetching movie details:", error);
+      }
+    }
 
+    getMovieDetails();
+  }, [location.state.tmdbId]);
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8">
       <div className="flex justify-end mb-4">
-        <label className="inline-flex items-center cursor-pointer">
+        {movie && <FavoriteButton item={{...movie, media_type: 'movie'}} />}
+        <label className="inline-flex items-center cursor-pointer ml-4">
           <span className="mr-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-            {server ? 'VidLink' : 'VidSrc'}
+            {server ? "VidLink" : "VidSrc"}
           </span>
           <div className="relative">
             <input
@@ -41,14 +61,13 @@ const MovieStream = () => {
         <iframe
           width="100%"
           height="100%"
-          src={server ? `https://vidlink.pro/movie/${tmdbdId}` : `https://vidsrc.icu/embed/movie/${tmdbdId}`}
+          src={server ? `https://vidlink.pro/movie/${tmdbId}` : `https://vidsrc.icu/embed/movie/${tmdbId}`}
           title="Movie Stream"
           allowFullScreen
         />
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default MovieStream
+export default MovieStream;

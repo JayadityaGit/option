@@ -1,4 +1,5 @@
-import { useState } from "react";
+import type React from "react";
+import {  useState } from "react";
 import { Movie, MovieResponse } from "../types/entType";
 import { PlaceholdersAndVanishInput } from "../components/ui/placeholders-and-vanish-input";
 import { FlipWords } from "../components/ui/flip-words";
@@ -94,3 +95,4 @@ const Home = () => {
 };
 
 export default Home;
+
