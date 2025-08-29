@@ -11,12 +11,14 @@ import AdblockDialog from "@/components/AdblockDialog";
 const TvStream = () => {
   const location = useLocation();
   const tmdbId = location.state.tmdbId;
-  const [server, setServer] = useState(false);
+  const [server, setServer] = useState(true);
   const [season, setSeason] = useState(1);
   const [ep, setEp] = useState(1);
   const [tvShowDetails, setTvShowDetails] = useState<Movie | null>(null); // Store as Movie type
   const [tvShowSeasons, setTvShowSeasons] = useState<TVShow | null>(null); // Store seasons separately
-  const [isAdblockDialogOpen, setIsAdblockDialogOpen] = useState(false);
+  const [isAdblockDialogOpen, setIsAdblockDialogOpen] = useState(
+    !localStorage.getItem("dontRemindAdblock")
+  );
 
   useEffect(() => {
     async function getTvDetails() {
@@ -55,9 +57,6 @@ const TvStream = () => {
   const handleServerChange = () => {
     const newServer = !server;
     setServer(newServer);
-    if (newServer) {
-      setIsAdblockDialogOpen(true);
-    }
   };
 
   return (
@@ -84,7 +83,6 @@ const TvStream = () => {
         <iframe
           src={server ? `https://vidlink.pro/tv/${tmdbId}/${season}/${ep}` : `https://vidsrc.icu/embed/tv/${tmdbId}/${season}/${ep}`}
           allowFullScreen
-          sandbox={server ? undefined : "allow-scripts allow-same-origin allow-popups"}
           className="absolute top-0 left-0 w-full h-full rounded-lg"
         />
       </div>

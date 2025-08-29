@@ -8,6 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useState } from "react";
 
 interface AdblockDialogProps {
   open: boolean;
@@ -15,8 +16,17 @@ interface AdblockDialogProps {
 }
 
 const AdblockDialog = ({ open, onOpenChange }: AdblockDialogProps) => {
+  const [dontRemindAgain, setDontRemindAgain] = useState(false);
+
+  const handleOpenChange = (open: boolean) => {
+    if (!open && dontRemindAgain) {
+      localStorage.setItem("dontRemindAdblock", "true");
+    }
+    onOpenChange(open);
+  };
+
   return (
-    <AlertDialog open={open} onOpenChange={onOpenChange}>
+    <AlertDialog open={open} onOpenChange={handleOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Remove Ads</AlertDialogTitle>
@@ -25,6 +35,20 @@ const AdblockDialog = ({ open, onOpenChange }: AdblockDialogProps) => {
             your browsing experience.
           </AlertDialogDescription>
         </AlertDialogHeader>
+        <div className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            id="dont-remind-again"
+            checked={dontRemindAgain}
+            onChange={(e) => setDontRemindAgain(e.target.checked)}
+          />
+          <label
+            htmlFor="dont-remind-again"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Don't remind me again
+          </label>
+        </div>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction asChild>

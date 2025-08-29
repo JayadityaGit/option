@@ -9,11 +9,12 @@ const MovieStream = () => {
   const [tmdbId, setTmdbId] = useState(location.state.tmdbId);
   const [movie, setMovie] = useState<Movie | null>(null);
   const [server, setServer] = useState(false);
-  const [isAdblockDialogOpen, setIsAdblockDialogOpen] = useState(false);
+  const [isAdblockDialogOpen, setIsAdblockDialogOpen] = useState(
+    !localStorage.getItem("dontRemindAdblock")
+  );
 
   useEffect(() => {
     const id: string = location.state.tmdbId;
-    setTmdbId(id);
 
     async function getMovieDetails() {
       const apiKey = import.meta.env.VITE_TMDB_API_KEY;
@@ -41,9 +42,6 @@ const MovieStream = () => {
   const handleServerChange = () => {
     const newServer = !server;
     setServer(newServer);
-    if (newServer) {
-      setIsAdblockDialogOpen(true);
-    }
   };
 
   return (
@@ -72,7 +70,6 @@ const MovieStream = () => {
           height="100%"
           src={server ? `https://vidlink.pro/movie/${tmdbId}` : `https://vidsrc.icu/embed/movie/${tmdbId}`}
           title="Movie Stream"
-          sandbox={server ? undefined : "allow-scripts allow-same-origin allow-popups"}
           allowFullScreen
         />
       </div>
