@@ -6,9 +6,9 @@ import AdblockDialog from "@/components/AdblockDialog";
 
 const MovieStream = () => {
   const location = useLocation();
-  const [tmdbId, setTmdbId] = useState(location.state.tmdbId);
+  const tmdbId = location.state.tmdbId;
   const [movie, setMovie] = useState<Movie | null>(null);
-  const [server, setServer] = useState(false);
+  const [server, setServer] = useState(true);
   const [isAdblockDialogOpen, setIsAdblockDialogOpen] = useState(
     !localStorage.getItem("dontRemindAdblock")
   );
@@ -37,7 +37,7 @@ const MovieStream = () => {
     }
 
     getMovieDetails();
-  }, [location.state.tmdbId]);
+  }, [tmdbId]);
 
   const handleServerChange = () => {
     const newServer = !server;
