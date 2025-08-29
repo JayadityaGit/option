@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import FavoriteButton from "../components/FavoriteButton";
 import { Movie } from "../types/entType";
+import AdblockDialog from "@/components/AdblockDialog";
 
 const MovieStream = () => {
   const location = useLocation();
   const [tmdbId, setTmdbId] = useState(location.state.tmdbId);
   const [movie, setMovie] = useState<Movie | null>(null);
-
   const [server, setServer] = useState(false);
+  const [isAdblockDialogOpen, setIsAdblockDialogOpen] = useState(false);
 
   useEffect(() => {
     const id: string = location.state.tmdbId;
@@ -37,6 +38,14 @@ const MovieStream = () => {
     getMovieDetails();
   }, [location.state.tmdbId]);
 
+  const handleServerChange = () => {
+    const newServer = !server;
+    setServer(newServer);
+    if (newServer) {
+      setIsAdblockDialogOpen(true);
+    }
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8">
       <div className="flex justify-end mb-4">
@@ -51,7 +60,7 @@ const MovieStream = () => {
               value=""
               className="sr-only peer"
               checked={server}
-              onChange={() => setServer(!server)}
+              onChange={handleServerChange}
             />
             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
           </div>
@@ -63,9 +72,11 @@ const MovieStream = () => {
           height="100%"
           src={server ? `https://vidlink.pro/movie/${tmdbId}` : `https://vidsrc.icu/embed/movie/${tmdbId}`}
           title="Movie Stream"
+          sandbox={server ? undefined : "allow-scripts allow-same-origin allow-popups"}
           allowFullScreen
         />
       </div>
+      <AdblockDialog open={isAdblockDialogOpen} onOpenChange={setIsAdblockDialogOpen} />
     </div>
   );
 };

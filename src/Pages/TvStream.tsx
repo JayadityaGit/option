@@ -6,6 +6,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Button } from "@/components/ui/button";
 import FavoriteButton from "../components/FavoriteButton";
+import AdblockDialog from "@/components/AdblockDialog";
 
 const TvStream = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const TvStream = () => {
   const [ep, setEp] = useState(1);
   const [tvShowDetails, setTvShowDetails] = useState<Movie | null>(null); // Store as Movie type
   const [tvShowSeasons, setTvShowSeasons] = useState<TVShow | null>(null); // Store seasons separately
+  const [isAdblockDialogOpen, setIsAdblockDialogOpen] = useState(false);
 
   useEffect(() => {
     async function getTvDetails() {
@@ -50,6 +52,14 @@ const TvStream = () => {
     getTvDetails();
   }, [tmdbId]);
 
+  const handleServerChange = () => {
+    const newServer = !server;
+    setServer(newServer);
+    if (newServer) {
+      setIsAdblockDialogOpen(true);
+    }
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto px-4 space-y-8">
       <div className="flex justify-end mb-4">
@@ -64,7 +74,7 @@ const TvStream = () => {
               value=""
               className="sr-only peer"
               checked={server}
-              onChange={() => setServer(!server)}
+              onChange={handleServerChange}
             />
             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
           </div>
@@ -74,6 +84,7 @@ const TvStream = () => {
         <iframe
           src={server ? `https://vidlink.pro/tv/${tmdbId}/${season}/${ep}` : `https://vidsrc.icu/embed/tv/${tmdbId}/${season}/${ep}`}
           allowFullScreen
+          sandbox={server ? undefined : "allow-scripts allow-same-origin allow-popups"}
           className="absolute top-0 left-0 w-full h-full rounded-lg"
         />
       </div>
@@ -135,6 +146,7 @@ const TvStream = () => {
           </Tabs>
         </div>
       )}
+      <AdblockDialog open={isAdblockDialogOpen} onOpenChange={setIsAdblockDialogOpen} />
     </div>
   );
 };
