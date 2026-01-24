@@ -27,12 +27,6 @@ Option is a full-stack streaming website that brings together Movies, TV Shows, 
 
 ---
 
-## 📸 Screenshots
-
-![Screenshot 2025-04-07 205403](https://github.com/user-attachments/assets/6ac7bee3-73c0-499a-abb4-ec1c4e63c862)
-![Screenshot 2025-04-07 205329](https://github.com/user-attachments/assets/18b118b9-290a-427b-8c1f-3bcf6eb66716)
-![Screenshot 2025-04-04 212711](https://github.com/user-attachments/assets/62129b2e-5490-4bcb-9b34-0f1b6a8d4086)
-
 
 ## 🤔 Why I Built This
 
