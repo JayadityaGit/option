@@ -11,7 +11,7 @@ import AdblockDialog from '@/components/AdblockDialog'
 const TvStream = () => {
     const location = useLocation()
     const tmdbId = location.state.tmdbId
-    const [server, setServer] = useState(true)
+    const [server, setServer] = useState(false)
     const [season, setSeason] = useState(1)
     const [ep, setEp] = useState(1)
     const [tvShowDetails, setTvShowDetails] = useState<Movie | null>(null) // Store as Movie type

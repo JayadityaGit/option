@@ -8,7 +8,7 @@ const MovieStream = () => {
   const location = useLocation();
   const tmdbId = location.state.tmdbId;
   const [movie, setMovie] = useState<Movie | null>(null);
-  const [server, setServer] = useState(true);
+  const [server, setServer] = useState(false);
   const [isAdblockDialogOpen, setIsAdblockDialogOpen] = useState(
     !localStorage.getItem("dontRemindAdblock")
   );
