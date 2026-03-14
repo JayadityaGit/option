@@ -14,11 +14,9 @@ const MovieStream = () => {
   );
 
   useEffect(() => {
-    const id: string = location.state.tmdbId;
-
     async function getMovieDetails() {
       const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-      const url = `https://api.themoviedb.org/3/movie/${id}`;
+      const url = `https://api.themoviedb.org/3/movie/${tmdbId}`;
       const options = {
         method: "GET",
         headers: {

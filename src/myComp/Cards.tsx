@@ -78,7 +78,7 @@ const Cards = ({ results, isFavoritesPage = false }: CardsProps) => {
         const userFavoritesRef = collection(firestore, "users", user.uid, "favorites")
         await setDoc(doc(userFavoritesRef, movie.id.toString()), movie)
         showSuccessModal("Added to Favorites!", `${movie.title || movie.name} has been added to your favorites list.`)
-      } catch (error) {
+      } catch {
         showErrorModal("Error", "Failed to add to favorites. Please try again.")
       }
     }
@@ -90,7 +90,7 @@ const Cards = ({ results, isFavoritesPage = false }: CardsProps) => {
         const userFavoritesRef = collection(firestore, "users", user.uid, "favorites")
         await deleteDoc(doc(userFavoritesRef, movieId.toString()))
         showSuccessModal("Removed from Favorites", "The item has been removed from your favorites list.")
-      } catch (error) {
+      } catch {
         showErrorModal("Error", "Failed to remove from favorites. Please try again.")
       }
     }

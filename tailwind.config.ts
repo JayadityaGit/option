@@ -1,14 +1,15 @@
 import { Config } from 'tailwindcss';
 import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette';
+import tailwindAnimate from 'tailwindcss-animate';
 
-const addVariablesForColors = ({ addBase, theme }: { addBase: any; theme: any }) => {
+const addVariablesForColors = ({ addBase, theme }: { addBase: (vars: Record<string, string>) => void; theme: (path: string) => Record<string, string | Record<string, string>> }) => {
   const allColors = flattenColorPalette(theme('colors'));
   const newVars = Object.fromEntries(
     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
 
   addBase({
-    ':root': newVars,
+    ':root': newVars as Record<string, string>,
   });
 };
 
@@ -71,7 +72,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [addVariablesForColors, require('tailwindcss-animate')],
+  plugins: [addVariablesForColors, tailwindAnimate],
 };
 
 export default config;
