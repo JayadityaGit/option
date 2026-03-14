@@ -8,6 +8,12 @@ import { Button } from '@/components/ui/button'
 import FavoriteButton from '../components/FavoriteButton'
 import AdblockDialog from '@/components/AdblockDialog'
 
+interface Episode {
+    episode_number: number
+    name: string
+    [key: string]: unknown
+}
+
 const TvStream = () => {
     const location = useLocation()
     const tmdbId = location.state.tmdbId
@@ -16,21 +22,21 @@ const TvStream = () => {
     const [ep, setEp] = useState(1)
     const [tvShowDetails, setTvShowDetails] = useState<Movie | null>(null) // Store as Movie type
     const [tvShowSeasons, setTvShowSeasons] = useState<TVShow | null>(null) // Store seasons separately
-    const [currentEpisodes, setCurrentEpisodes] = useState<any[]>([]) // For episodes name
+    const [currentEpisodes, setCurrentEpisodes] = useState<Episode[]>([]) // For episodes name
     const [isAdblockDialogOpen, setIsAdblockDialogOpen] = useState(
         !localStorage.getItem('dontRemindAdblock'),
     )
 
     const apiKey = import.meta.env.VITE_TMDB_API_KEY
-    const options = {
-        method: 'GET',
-        headers: {
-            accept: 'application/json',
-            Authorization: `Bearer ${apiKey}`,
-        },
-    }
 
     useEffect(() => {
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${apiKey}`,
+            },
+        }
         async function getTvDetails() {
             const url = `https://api.themoviedb.org/3/tv/${tmdbId}`
             try {
@@ -52,10 +58,17 @@ const TvStream = () => {
             }
         }
         getTvDetails()
-    }, [tmdbId])
+    }, [tmdbId, apiKey])
 
     // NEW: Effect to fetch episode names whenever the season changes
     useEffect(() => {
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${apiKey}`,
+            },
+        }
         async function getSeasonDetails() {
             const url = `https://api.themoviedb.org/3/tv/${tmdbId}/season/${season}`
             try {
@@ -67,7 +80,7 @@ const TvStream = () => {
             }
         }
         getSeasonDetails()
-    }, [tmdbId, season])
+    }, [tmdbId, season, apiKey])
 
     const handleServerChange = () => {
         setServer(!server)
