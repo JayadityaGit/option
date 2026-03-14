@@ -22,7 +22,7 @@
     "jsx": "react-jsx",
 
     /* Vitest types */
-    "types": ["vitest/globals"],
+    "types": ["vitest/globals", "node"],
 
     /* Linting */
     "strict": true,
