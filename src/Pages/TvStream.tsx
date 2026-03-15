@@ -22,7 +22,7 @@ const TvStream = () => {
     const [ep, setEp] = useState(1)
     const [tvShowDetails, setTvShowDetails] = useState<Movie | null>(null) // Store as Movie type
     const [tvShowSeasons, setTvShowSeasons] = useState<TVShow | null>(null) // Store seasons separately
-    const [currentEpisodes, setCurrentEpisodes] = useState<Episode[]>([]) // For episodes name
+    const [episodesBySeason, setEpisodesBySeason] = useState<Record<number, Episode[]>>({})
     const [isAdblockDialogOpen, setIsAdblockDialogOpen] = useState(
         !localStorage.getItem('dontRemindAdblock'),
     )
@@ -62,6 +62,9 @@ const TvStream = () => {
 
     // NEW: Effect to fetch episode names whenever the season changes
     useEffect(() => {
+        // Skip fetching if we already have the episodes for this season
+        if (episodesBySeason[season]) return
+
         const options = {
             method: 'GET',
             headers: {
@@ -74,13 +77,16 @@ const TvStream = () => {
             try {
                 const response = await fetch(url, options)
                 const data = await response.json()
-                setCurrentEpisodes(data.episodes || [])
+                setEpisodesBySeason((prev) => ({
+                    ...prev,
+                    [season]: data.episodes || [],
+                }))
             } catch (error) {
                 console.error('Error fetching season details:', error)
             }
         }
         getSeasonDetails()
-    }, [tmdbId, season, apiKey])
+    }, [tmdbId, season, apiKey, episodesBySeason])
 
     const handleServerChange = () => {
         setServer(!server)
@@ -122,9 +128,11 @@ const TvStream = () => {
                     <Tabs defaultValue={`Season${1}`} className='w-full'>
                         <ScrollArea className='w-full pb-4'>
                             <TabsList className='w-full justify-start sm:mb-4 lg:mt-0'>
-                                {tvShowSeasons.seasons.map((s) => (
-                                    <TabsTrigger
-                                        key={s.season_number}
+                                {tvShowSeasons.seasons
+                                    .filter((s) => s.season_number !== 0)
+                                    .map((s) => (
+                                        <TabsTrigger
+                                            key={s.season_number}
                                         value={`Season${s.season_number}`}
                                         className='min-w-[100px]'
                                         onClick={() => {
@@ -139,9 +147,11 @@ const TvStream = () => {
                             <ScrollBar orientation='horizontal' />
                         </ScrollArea>
 
-                        {tvShowSeasons.seasons.map((s) => (
-                            <TabsContent
-                                key={s.season_number}
+                        {tvShowSeasons.seasons
+                            .filter((s) => s.season_number !== 0)
+                            .map((s) => (
+                                <TabsContent
+                                    key={s.season_number}
                                 value={`Season${s.season_number}`}
                                 className='sm:mt-3 lg:mt-0'
                             >
@@ -154,9 +164,9 @@ const TvStream = () => {
                                             {Array.from({ length: s.episode_count }, (_, i) => {
                                                 const epNumber = i + 1
                                                 // Find the name for this specific episode
-                                                const epName = currentEpisodes.find(
-                                                    (e) => e.episode_number === epNumber,
-                                                )?.name
+                                                const epName = episodesBySeason[
+                                                    s.season_number
+                                                ]?.find((e) => e.episode_number === epNumber)?.name
 
                                                 return (
                                                     <div key={i} className='space-y-2'>
