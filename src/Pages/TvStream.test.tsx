@@ -151,7 +151,7 @@ describe('TvStream Component', () => {
     await user.click(episode2Button)
 
     await waitFor(() => {
-      const iframe = document.querySelector('iframe')
+      const iframe = screen.getByTitle('TV Show Stream')
       expect(iframe).toHaveAttribute('src', 'https://vidsrc.icu/embed/tv/456/1/2')
     })
   })

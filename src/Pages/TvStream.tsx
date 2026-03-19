@@ -118,6 +118,7 @@ const TvStream = () => {
                             ? `https://vidlink.pro/tv/${tmdbId}/${season}/${ep}`
                             : `https://vidsrc.icu/embed/tv/${tmdbId}/${season}/${ep}`
                     }
+                    title="TV Show Stream"
                     allowFullScreen
                     className='absolute top-0 left-0 w-full h-full rounded-lg'
                 />
