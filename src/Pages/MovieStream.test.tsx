@@ -17,9 +17,9 @@ vi.mock('../firebase/firebase', () => ({
 
 // Mock react-router's useLocation
 vi.mock('react-router', async (importOriginal) => {
-  const actual = await importOriginal()
+  const actual = await importOriginal<Record<string, unknown>>()
   return {
-    ...actual as any,
+    ...actual,
     useLocation: () => ({
       state: { tmdbId: 123 }
     }),
