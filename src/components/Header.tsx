@@ -1,9 +1,9 @@
-import { Link } from "react-router"
-import { onAuthStateChanged, type User } from "firebase/auth"
-import { auth } from "../firebase/firebase"
-import LoginButton from "./LoginButton"
-import { Button } from "./ui/button"
-import { ModeToggle } from "./mode-toggle"
+import { Link } from 'react-router'
+import { onAuthStateChanged, type User } from 'firebase/auth'
+import { auth } from '../firebase/firebase'
+import LoginButton from './LoginButton'
+import { Button } from './ui/button'
+import { ModeToggle } from './mode-toggle'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,12 +14,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Crown, Heart, LogOut, Home } from "lucide-react"
-import { useEffect, useState } from "react"
+} from '@/components/ui/alert-dialog'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Crown, Heart, LogOut, Home, Github, Bug } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 const Header = () => {
   const [user, setUser] = useState<User | null>(null)
+  const repoUrl = 'https://github.com/JayadityaGit/option'
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -32,7 +39,7 @@ const Header = () => {
     try {
       await auth.signOut()
     } catch (error) {
-      console.error("Error signing out:", error)
+      console.error('Error signing out:', error)
     }
   }
 
@@ -58,13 +65,13 @@ const Header = () => {
             <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
               {user.photoURL ? (
                 <img
-                  src={user.photoURL || "/placeholder.svg"}
-                  alt={user.displayName || "User"}
+                  src={user.photoURL || '/placeholder.svg'}
+                  alt={user.displayName || 'User'}
                   className="w-full h-full object-cover"
                 />
               ) : (
                 <span className="text-xs font-medium text-white">
-                  {user.displayName?.charAt(0).toUpperCase() || "U"}
+                  {user.displayName?.charAt(0).toUpperCase() || 'U'}
                 </span>
               )}
             </div>
@@ -99,6 +106,41 @@ const Header = () => {
 
       {/* Right side - Controls */}
       <div className="flex items-center gap-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              size="sm"
+              variant="outline"
+              className="gap-2 px-3 focus-visible:ring-0 focus:outline-none h-9"
+            >
+              <Github className="h-4 w-4 transition-transform duration-200 group-hover:rotate-12" />
+              <span className="hidden md:inline text-sm">Contribute</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="end"
+            className="w-52 rounded-xl border border-border bg-background shadow-md"
+          >
+            <DropdownMenuItem
+              asChild
+              className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-muted focus:bg-muted"
+            >
+              <a target="_blank" rel="noopener noreferrer" href={repoUrl}>
+                <Github className="h-4 w-4 opacity-70" />
+                Open repository
+              </a>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              asChild
+              className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-muted focus:bg-muted"
+            >
+              <a target="_blank" rel="noopener noreferrer" href={`${repoUrl}/issues/new`}>
+                <Bug className="h-4 w-4 opacity-70" />
+                Report an issue
+              </a>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <ModeToggle />
         <AlertDialog>
           <AlertDialogTrigger asChild>
@@ -114,8 +156,8 @@ const Header = () => {
             <AlertDialogHeader>
               <AlertDialogTitle>Remove Ads</AlertDialogTitle>
               <AlertDialogDescription>
-                Install the <strong>uBlock Origin</strong> extension on your browser to block intrusive ads and improve
-                your browsing experience.
+                Install the <strong>uBlock Origin</strong> extension on your browser to block
+                intrusive ads and improve your browsing experience.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
