@@ -111,7 +111,7 @@ const Header = () => {
             <Button
               size="sm"
               variant="outline"
-              className="gap-2 px-3 focus-visible:ring-0 focus:outline-none"
+              className="gap-2 px-3 focus-visible:ring-0 focus:outline-none h-9"
             >
               <Github className="h-4 w-4 transition-transform duration-200 group-hover:rotate-12" />
               <span className="hidden md:inline text-sm">Contribute</span>
