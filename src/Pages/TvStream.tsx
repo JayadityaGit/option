@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router'
+import { useLocation, Navigate } from 'react-router'
 import { TVShow, Movie } from '../types/entType'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
@@ -16,7 +16,8 @@ interface Episode {
 
 const TvStream = () => {
     const location = useLocation()
-    const tmdbId = location.state.tmdbId
+    const tmdbId = location.state?.tmdbId
+
     const [server, setServer] = useState(false)
     const [season, setSeason] = useState(1)
     const [ep, setEp] = useState(1)
@@ -30,6 +31,8 @@ const TvStream = () => {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY
 
     useEffect(() => {
+        if (!tmdbId) return;
+
         const options = {
             method: 'GET',
             headers: {
@@ -62,6 +65,8 @@ const TvStream = () => {
 
     // NEW: Effect to fetch episode names whenever the season changes
     useEffect(() => {
+        if (!tmdbId) return;
+
         // Skip fetching if we already have the episodes for this season
         if (episodesBySeason[season]) return
 
@@ -90,6 +95,10 @@ const TvStream = () => {
 
     const handleServerChange = () => {
         setServer(!server)
+    }
+
+    if (!tmdbId) {
+        return <Navigate to="/" replace />
     }
 
     return (

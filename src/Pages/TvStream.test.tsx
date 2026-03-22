@@ -16,13 +16,13 @@ vi.mock('../firebase/firebase', () => ({
 }))
 
 // Mock react-router's useLocation
+const mockLocation = vi.fn()
 vi.mock('react-router', async (importOriginal) => {
   const actual = await importOriginal<Record<string, unknown>>()
   return {
     ...actual,
-    useLocation: () => ({
-      state: { tmdbId: 456 }
-    }),
+    useLocation: () => mockLocation(),
+    Navigate: vi.fn(({ to }) => <div data-testid="navigate" data-to={to} />),
   }
 })
 
@@ -40,9 +40,24 @@ global.ResizeObserver = class {
 describe('TvStream Component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    // Default mock location state
+    mockLocation.mockReturnValue({ state: { tmdbId: 456 } })
     global.fetch = vi.fn()
     // Mock localStorage to return 'true' so AdblockDialog doesn't open
     Storage.prototype.getItem = vi.fn(() => 'true')
+  })
+
+  it('redirects to home if tmdbId is missing', () => {
+    mockLocation.mockReturnValue({ state: null })
+
+    render(
+      <MemoryRouter>
+        <TvStream />
+      </MemoryRouter>
+    )
+
+    expect(screen.getByTestId('navigate')).toBeInTheDocument()
+    expect(screen.getByTestId('navigate')).toHaveAttribute('data-to', '/')
   })
 
   it('renders initial state and fetches tv details', async () => {
