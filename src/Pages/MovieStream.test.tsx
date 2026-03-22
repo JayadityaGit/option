@@ -16,23 +16,38 @@ vi.mock('../firebase/firebase', () => ({
 }))
 
 // Mock react-router's useLocation
+const mockLocation = vi.fn()
 vi.mock('react-router', async (importOriginal) => {
   const actual = await importOriginal<Record<string, unknown>>()
   return {
     ...actual,
-    useLocation: () => ({
-      state: { tmdbId: 123 }
-    }),
+    useLocation: () => mockLocation(),
+    Navigate: vi.fn(({ to }) => <div data-testid="navigate" data-to={to} />),
   }
 })
 
 describe('MovieStream Component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    // Default mock location state
+    mockLocation.mockReturnValue({ state: { tmdbId: 123 } })
     // Mock global fetch
     global.fetch = vi.fn()
     // Mock localStorage to return 'true' so AdblockDialog doesn't open
     Storage.prototype.getItem = vi.fn(() => 'true')
+  })
+
+  it('redirects to home if tmdbId is missing', () => {
+    mockLocation.mockReturnValue({ state: null })
+
+    render(
+      <MemoryRouter>
+        <MovieStream />
+      </MemoryRouter>
+    )
+
+    expect(screen.getByTestId('navigate')).toBeInTheDocument()
+    expect(screen.getByTestId('navigate')).toHaveAttribute('data-to', '/')
   })
 
   it('renders initial state and fetches movie details', async () => {

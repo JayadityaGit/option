@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, Navigate } from "react-router";
 import FavoriteButton from "../components/FavoriteButton";
 import { Movie } from "../types/entType";
 import AdblockDialog from "@/components/AdblockDialog";
 
 const MovieStream = () => {
   const location = useLocation();
-  const tmdbId = location.state.tmdbId;
+  const tmdbId = location.state?.tmdbId;
+
   const [movie, setMovie] = useState<Movie | null>(null);
   const [server, setServer] = useState(false);
   const [isAdblockDialogOpen, setIsAdblockDialogOpen] = useState(
@@ -14,6 +15,8 @@ const MovieStream = () => {
   );
 
   useEffect(() => {
+    if (!tmdbId) return;
+
     async function getMovieDetails() {
       const apiKey = import.meta.env.VITE_TMDB_API_KEY;
       const url = `https://api.themoviedb.org/3/movie/${tmdbId}`;
@@ -41,6 +44,10 @@ const MovieStream = () => {
     const newServer = !server;
     setServer(newServer);
   };
+
+  if (!tmdbId) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8">
